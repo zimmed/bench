@@ -1,6 +1,6 @@
 {
   "name": "@zimmed/bench",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "description": "Simple benchmarking / performance comparison library for node and web in TypeScript",
   "keywords": [],
   "main": "dist/bench-web.umd.js",

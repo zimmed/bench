@@ -518,7 +518,7 @@ export default class Bench implements IBench {
 export function _singletonMethods(singleton = Bench.create('Default')): IBench {
   return `
     log error xbench bench xtrial trial setUp tearDown beforeEach afterEach assert
-    assertExists assertEq assertNotEq assertLength assertIsType assertLt assertGt
+    assertExists assertEq assertNotEq assertLength assertType assertLt assertGt
     assertLte assertGte assertNotLength assertNotType assertNotExists
   `
     .split(/\s+/g)

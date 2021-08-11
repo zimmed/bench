@@ -28,4 +28,4 @@
 
 #### Defined in
 
-[common/mutexify.ts:36](https://github.com/zimmed/bench/blob/438f8af/src/common/mutexify.ts#L36)
+[common/mutexify.ts:36](https://github.com/zimmed/bench/blob/d62eac5/src/common/mutexify.ts#L36)
