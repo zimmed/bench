@@ -1,0 +1,136 @@
+{
+  "name": "@zimmed/bench",
+  "version": "0.1.0",
+  "description": "Simple benchmarking / performance comparison library for node and web in TypeScript",
+  "keywords": [],
+  "main": "dist/bench-web.umd.js",
+  "module": "dist/bench.js",
+  "typings": "dist/types/**/*",
+  "files": [
+    "dist"
+  ],
+  "author": "zimmed@zimmed.io",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/zimmed/bench.git"
+  },
+  "publishConfig": {
+    "registry": "https://npm.pkg.github.com/"
+  },
+  "license": "MIT",
+  "engines": {
+    "node": ">=16 <=17"
+  },
+  "scripts": {
+    "lint": "tslint  --project tsconfig.json -t codeFrame 'src/**/*.ts' 'test/**/*.ts'",
+    "prebuild": "rimraf dist",
+    "build": "tsc --module commonjs && rollup -c rollup.config.ts && typedoc --out docs --theme markdown src && jest-coverage-badges input 'coverage/coverage-summary.json' output 'coverage'",
+    "start": "rollup -c rollup.config.ts -w",
+    "test": "jest --coverage",
+    "test:watch": "jest --coverage --watch",
+    "test:prod": "npm run lint && npm run test -- --no-cache",
+    "badges": "jest-coverage-badges input 'coverage/coverage-summary.json' output 'coverage'",
+    "deploy-docs": "ts-node tools/gh-pages-publish",
+    "report-coverage": "cat coverage/lcov.info | coveralls",
+    "commit": "git-cz",
+    "semantic-release": "semantic-release",
+    "semantic-release-prepare": "ts-node tools/semantic-release-prepare",
+    "precommit": "lint-staged",
+    "travis-deploy-once": "travis-deploy-once"
+  },
+  "lint-staged": {
+    "{src,test}/**/*.ts": [
+      "prettier --write",
+      "git add"
+    ]
+  },
+  "config": {
+    "commitizen": {
+      "path": "node_modules/cz-conventional-changelog"
+    }
+  },
+  "jest": {
+    "transform": {
+      ".(ts|tsx)": "ts-jest"
+    },
+    "testEnvironment": "node",
+    "testRegex": "(/__tests__/.*|\\.(test|spec))\\.(ts|tsx|js)$",
+    "moduleFileExtensions": [
+      "ts",
+      "tsx",
+      "js"
+    ],
+    "coverageReporters": [
+      "json-summary",
+      "text"
+    ],
+    "coveragePathIgnorePatterns": [
+      "/node_modules/",
+      "/test/"
+    ],
+    "coverageThreshold": {
+      "global": {
+        "branches": 90,
+        "functions": 95,
+        "lines": 95,
+        "statements": 95
+      }
+    },
+    "collectCoverageFrom": [
+      "src/*.{js,ts}"
+    ]
+  },
+  "exports": {
+    ".": "./dist/bench.js",
+    "./node": "./dist/node.js",
+    "./web": "./dist/web.js"
+  },
+  "commitlint": {
+    "extends": [
+      "@commitlint/config-conventional"
+    ]
+  },
+  "devDependencies": {
+    "@commitlint/cli": "^13.1.0",
+    "@commitlint/config-conventional": "^13.1.0",
+    "@types/jest": "^26.0.24",
+    "@types/node": "^16.4.3",
+    "@types/pretty-hrtime": "^1.0.1",
+    "colors": "^1.4.0",
+    "commitizen": "^4.2.4",
+    "coveralls": "^3.1.1",
+    "cross-env": "^7.0.3",
+    "cz-conventional-changelog": "^3.3.0",
+    "husky": "^7.0.1",
+    "jest": "^27.0.6",
+    "jest-config": "^27.0.6",
+    "jest-coverage-badges": "^1.1.2",
+    "lint-staged": "^11.1.1",
+    "lodash.camelcase": "^4.3.0",
+    "prettier": "^2.3.2",
+    "prompt": "^1.1.0",
+    "replace-in-file": "^6.2.0",
+    "rimraf": "^3.0.2",
+    "rollup": "^2.54.0",
+    "rollup-plugin-commonjs": "^9.1.8",
+    "rollup-plugin-json": "^3.1.0",
+    "rollup-plugin-node-resolve": "^3.4.0",
+    "rollup-plugin-sourcemaps": "^0.6.3",
+    "rollup-plugin-typescript2": "^0.30.0",
+    "semantic-release": "^17.4.4",
+    "shelljs": "^0.8.4",
+    "travis-deploy-once": "^3.3.0",
+    "ts-jest": "^27.0.4",
+    "ts-node": "^10.1.0",
+    "tslint": "^5.20.1",
+    "tslint-config-prettier": "^1.18.0",
+    "tslint-config-standard": "^8.0.1",
+    "typedoc": "^0.21.4",
+    "typedoc-plugin-markdown": "^3.10.4",
+    "typescript": "^4.3.5"
+  },
+  "dependencies": {
+    "browser-process-hrtime": "^1.0.0",
+    "pretty-hrtime": "^1.0.3"
+  }
+}
