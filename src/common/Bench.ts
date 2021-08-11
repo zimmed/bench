@@ -353,7 +353,10 @@ export default class Bench implements IBench {
     const isAsync = typeof b === 'boolean' ? b : typeof c === 'boolean' ? c : d;
 
     if (!fn) throw new Error(`No function supplied to trial: ${name}`);
-    if (only) this.state.oneTrial = true;
+    if (only) {
+      if (this.state.oneTrial) throw new Error('Cannot have more than one "only" trial.');
+      this.state.oneTrial = true;
+    }
     this.state.trials.add({ name, fn, only, async: isAsync });
   }
 
@@ -390,6 +393,11 @@ export default class Bench implements IBench {
             | (() => void | Promise<void>)
             | ((b: IBench) => void | Promise<void>));
     const iterations: number = typeof bodyOrIterations === 'number' ? bodyOrIterations : it;
+
+    if (only) {
+      if (this.state.one) throw new Error('Cannot have more than one "only" benchmark');
+      this.state.one = true;
+    }
 
     return new Promise((res, rej) => {
       process.nextTick(async () => {
