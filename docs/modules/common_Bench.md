@@ -39,7 +39,7 @@
 
 #### Defined in
 
-common/Bench.ts:6
+[common/Bench.ts:6](https://github.com/zimmed/bench/blob/438f8af/src/common/Bench.ts#L6)
 
 ___
 
@@ -59,7 +59,7 @@ ___
 
 #### Defined in
 
-common/Bench.ts:30
+[common/Bench.ts:30](https://github.com/zimmed/bench/blob/438f8af/src/common/Bench.ts#L30)
 
 ___
 
@@ -69,7 +69,7 @@ ___
 
 #### Defined in
 
-common/Bench.ts:21
+[common/Bench.ts:21](https://github.com/zimmed/bench/blob/438f8af/src/common/Bench.ts#L21)
 
 ___
 
@@ -87,7 +87,7 @@ ___
 
 #### Defined in
 
-common/Bench.ts:16
+[common/Bench.ts:16](https://github.com/zimmed/bench/blob/438f8af/src/common/Bench.ts#L16)
 
 ___
 
@@ -97,7 +97,7 @@ ___
 
 #### Defined in
 
-common/Bench.ts:18
+[common/Bench.ts:18](https://github.com/zimmed/bench/blob/438f8af/src/common/Bench.ts#L18)
 
 ___
 
@@ -107,7 +107,7 @@ ___
 
 #### Defined in
 
-common/Bench.ts:19
+[common/Bench.ts:19](https://github.com/zimmed/bench/blob/438f8af/src/common/Bench.ts#L19)
 
 ## Functions
 
@@ -127,4 +127,4 @@ common/Bench.ts:19
 
 #### Defined in
 
-common/Bench.ts:518
+[common/Bench.ts:518](https://github.com/zimmed/bench/blob/438f8af/src/common/Bench.ts#L518)

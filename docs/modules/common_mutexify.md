@@ -30,4 +30,4 @@
 
 #### Defined in
 
-common/mutexify.ts:5
+[common/mutexify.ts:5](https://github.com/zimmed/bench/blob/438f8af/src/common/mutexify.ts#L5)

@@ -1,70 +1,70 @@
-[@zimmed/bench](../README.md) / [Exports](../modules.md) / [web](../modules/web.md) / default
+[@zimmed/bench](../README.md) / [Exports](../modules.md) / [web](../modules/web.md) / WebBench
 
-# Class: default
+# Class: WebBench
 
-[web](../modules/web.md).default
+[web](../modules/web.md).WebBench
 
 ## Hierarchy
 
 - [`default`](common_Bench.default.md)
 
-  ↳ **`default`**
+  ↳ **`WebBench`**
 
 ## Table of contents
 
 ### Constructors
 
-- [constructor](web.default.md#constructor)
+- [constructor](web.WebBench.md#constructor)
 
 ### Properties
 
-- [logBuffer](web.default.md#logbuffer)
-- [name](web.default.md#name)
-- [state](web.default.md#state)
-- [lock](web.default.md#lock)
-- [package](web.default.md#package)
+- [logBuffer](web.WebBench.md#logbuffer)
+- [name](web.WebBench.md#name)
+- [state](web.WebBench.md#state)
+- [lock](web.WebBench.md#lock)
+- [package](web.WebBench.md#package)
 
 ### Accessors
 
-- [lock](web.default.md#lock)
-- [package](web.default.md#package)
+- [lock](web.WebBench.md#lock)
+- [package](web.WebBench.md#package)
 
 ### Methods
 
-- [afterEach](web.default.md#aftereach)
-- [assert](web.default.md#assert)
-- [assertEq](web.default.md#asserteq)
-- [assertExists](web.default.md#assertexists)
-- [assertGt](web.default.md#assertgt)
-- [assertGte](web.default.md#assertgte)
-- [assertLength](web.default.md#assertlength)
-- [assertLt](web.default.md#assertlt)
-- [assertLte](web.default.md#assertlte)
-- [assertNotEq](web.default.md#assertnoteq)
-- [assertNotExists](web.default.md#assertnotexists)
-- [assertNotLength](web.default.md#assertnotlength)
-- [assertNotType](web.default.md#assertnottype)
-- [assertType](web.default.md#asserttype)
-- [beforeEach](web.default.md#beforeeach)
-- [bench](web.default.md#bench)
-- [error](web.default.md#error)
-- [log](web.default.md#log)
-- [printHeader](web.default.md#printheader)
-- [reset](web.default.md#reset)
-- [setUp](web.default.md#setup)
-- [tearDown](web.default.md#teardown)
-- [trial](web.default.md#trial)
-- [waitForComplete](web.default.md#waitforcomplete)
-- [xbench](web.default.md#xbench)
-- [xtrial](web.default.md#xtrial)
-- [create](web.default.md#create)
-- [overallScores](web.default.md#overallscores)
+- [afterEach](web.WebBench.md#aftereach)
+- [assert](web.WebBench.md#assert)
+- [assertEq](web.WebBench.md#asserteq)
+- [assertExists](web.WebBench.md#assertexists)
+- [assertGt](web.WebBench.md#assertgt)
+- [assertGte](web.WebBench.md#assertgte)
+- [assertLength](web.WebBench.md#assertlength)
+- [assertLt](web.WebBench.md#assertlt)
+- [assertLte](web.WebBench.md#assertlte)
+- [assertNotEq](web.WebBench.md#assertnoteq)
+- [assertNotExists](web.WebBench.md#assertnotexists)
+- [assertNotLength](web.WebBench.md#assertnotlength)
+- [assertNotType](web.WebBench.md#assertnottype)
+- [assertType](web.WebBench.md#asserttype)
+- [beforeEach](web.WebBench.md#beforeeach)
+- [bench](web.WebBench.md#bench)
+- [error](web.WebBench.md#error)
+- [log](web.WebBench.md#log)
+- [printHeader](web.WebBench.md#printheader)
+- [reset](web.WebBench.md#reset)
+- [setUp](web.WebBench.md#setup)
+- [tearDown](web.WebBench.md#teardown)
+- [trial](web.WebBench.md#trial)
+- [waitForComplete](web.WebBench.md#waitforcomplete)
+- [xbench](web.WebBench.md#xbench)
+- [xtrial](web.WebBench.md#xtrial)
+- [create](web.WebBench.md#create)
+- [overallScores](web.WebBench.md#overallscores)
 
 ## Constructors
 
 ### constructor
 
-• **new default**(`name?`)
+• **new WebBench**(`name?`)
 
 #### Parameters
 
@@ -78,7 +78,7 @@
 
 #### Defined in
 
-common/Bench.ts:180
+[common/Bench.ts:180](https://github.com/zimmed/bench/blob/438f8af/src/common/Bench.ts#L180)
 
 ## Properties
 
@@ -88,7 +88,7 @@ common/Bench.ts:180
 
 #### Defined in
 
-web/index.ts:4
+[web/index.ts:4](https://github.com/zimmed/bench/blob/438f8af/src/web/index.ts#L4)
 
 ___
 
@@ -102,7 +102,7 @@ ___
 
 #### Defined in
 
-common/Bench.ts:146
+[common/Bench.ts:146](https://github.com/zimmed/bench/blob/438f8af/src/common/Bench.ts#L146)
 
 ___
 
@@ -131,7 +131,7 @@ ___
 
 #### Defined in
 
-common/Bench.ts:148
+[common/Bench.ts:148](https://github.com/zimmed/bench/blob/438f8af/src/common/Bench.ts#L148)
 
 ___
 
@@ -145,7 +145,7 @@ ___
 
 #### Defined in
 
-common/Bench.ts:108
+[common/Bench.ts:108](https://github.com/zimmed/bench/blob/438f8af/src/common/Bench.ts#L108)
 
 ___
 
@@ -159,7 +159,7 @@ ___
 
 #### Defined in
 
-common/Bench.ts:107
+[common/Bench.ts:107](https://github.com/zimmed/bench/blob/438f8af/src/common/Bench.ts#L107)
 
 ## Accessors
 
@@ -173,7 +173,7 @@ common/Bench.ts:107
 
 #### Defined in
 
-common/Bench.ts:138
+[common/Bench.ts:138](https://github.com/zimmed/bench/blob/438f8af/src/common/Bench.ts#L138)
 
 ___
 
@@ -187,7 +187,7 @@ ___
 
 #### Defined in
 
-common/Bench.ts:142
+[common/Bench.ts:142](https://github.com/zimmed/bench/blob/438f8af/src/common/Bench.ts#L142)
 
 ## Methods
 
@@ -211,7 +211,7 @@ common/Bench.ts:142
 
 #### Defined in
 
-common/Bench.ts:321
+[common/Bench.ts:321](https://github.com/zimmed/bench/blob/438f8af/src/common/Bench.ts#L321)
 
 ___
 
@@ -236,7 +236,7 @@ ___
 
 #### Defined in
 
-common/Bench.ts:221
+[common/Bench.ts:221](https://github.com/zimmed/bench/blob/438f8af/src/common/Bench.ts#L221)
 
 ___
 
@@ -262,7 +262,7 @@ ___
 
 #### Defined in
 
-common/Bench.ts:241
+[common/Bench.ts:241](https://github.com/zimmed/bench/blob/438f8af/src/common/Bench.ts#L241)
 
 ___
 
@@ -287,7 +287,7 @@ ___
 
 #### Defined in
 
-common/Bench.ts:253
+[common/Bench.ts:253](https://github.com/zimmed/bench/blob/438f8af/src/common/Bench.ts#L253)
 
 ___
 
@@ -313,7 +313,7 @@ ___
 
 #### Defined in
 
-common/Bench.ts:299
+[common/Bench.ts:299](https://github.com/zimmed/bench/blob/438f8af/src/common/Bench.ts#L299)
 
 ___
 
@@ -339,7 +339,7 @@ ___
 
 #### Defined in
 
-common/Bench.ts:302
+[common/Bench.ts:302](https://github.com/zimmed/bench/blob/438f8af/src/common/Bench.ts#L302)
 
 ___
 
@@ -365,7 +365,7 @@ ___
 
 #### Defined in
 
-common/Bench.ts:259
+[common/Bench.ts:259](https://github.com/zimmed/bench/blob/438f8af/src/common/Bench.ts#L259)
 
 ___
 
@@ -391,7 +391,7 @@ ___
 
 #### Defined in
 
-common/Bench.ts:308
+[common/Bench.ts:308](https://github.com/zimmed/bench/blob/438f8af/src/common/Bench.ts#L308)
 
 ___
 
@@ -417,7 +417,7 @@ ___
 
 #### Defined in
 
-common/Bench.ts:305
+[common/Bench.ts:305](https://github.com/zimmed/bench/blob/438f8af/src/common/Bench.ts#L305)
 
 ___
 
@@ -443,7 +443,7 @@ ___
 
 #### Defined in
 
-common/Bench.ts:247
+[common/Bench.ts:247](https://github.com/zimmed/bench/blob/438f8af/src/common/Bench.ts#L247)
 
 ___
 
@@ -468,7 +468,7 @@ ___
 
 #### Defined in
 
-common/Bench.ts:256
+[common/Bench.ts:256](https://github.com/zimmed/bench/blob/438f8af/src/common/Bench.ts#L256)
 
 ___
 
@@ -494,7 +494,7 @@ ___
 
 #### Defined in
 
-common/Bench.ts:265
+[common/Bench.ts:265](https://github.com/zimmed/bench/blob/438f8af/src/common/Bench.ts#L265)
 
 ___
 
@@ -520,7 +520,7 @@ ___
 
 #### Defined in
 
-common/Bench.ts:285
+[common/Bench.ts:285](https://github.com/zimmed/bench/blob/438f8af/src/common/Bench.ts#L285)
 
 ___
 
@@ -546,7 +546,7 @@ ___
 
 #### Defined in
 
-common/Bench.ts:271
+[common/Bench.ts:271](https://github.com/zimmed/bench/blob/438f8af/src/common/Bench.ts#L271)
 
 ___
 
@@ -570,7 +570,7 @@ ___
 
 #### Defined in
 
-common/Bench.ts:318
+[common/Bench.ts:318](https://github.com/zimmed/bench/blob/438f8af/src/common/Bench.ts#L318)
 
 ___
 
@@ -596,7 +596,7 @@ ___
 
 #### Defined in
 
-common/Bench.ts:364
+[common/Bench.ts:364](https://github.com/zimmed/bench/blob/438f8af/src/common/Bench.ts#L364)
 
 ▸ **bench**(`only`, `name`, `body`, `iterations?`): `Promise`<[`Summary`](../modules/common_Bench.md#summary)[]\>
 
@@ -619,7 +619,7 @@ common/Bench.ts:364
 
 #### Defined in
 
-common/Bench.ts:369
+[common/Bench.ts:369](https://github.com/zimmed/bench/blob/438f8af/src/common/Bench.ts#L369)
 
 ___
 
@@ -643,7 +643,7 @@ ___
 
 #### Defined in
 
-web/index.ts:15
+[web/index.ts:15](https://github.com/zimmed/bench/blob/438f8af/src/web/index.ts#L15)
 
 ___
 
@@ -668,7 +668,7 @@ ___
 
 #### Defined in
 
-web/index.ts:6
+[web/index.ts:6](https://github.com/zimmed/bench/blob/438f8af/src/web/index.ts#L6)
 
 ___
 
@@ -686,7 +686,7 @@ ___
 
 #### Defined in
 
-web/index.ts:20
+[web/index.ts:20](https://github.com/zimmed/bench/blob/438f8af/src/web/index.ts#L20)
 
 ___
 
@@ -704,7 +704,7 @@ ___
 
 #### Defined in
 
-common/Bench.ts:207
+[common/Bench.ts:207](https://github.com/zimmed/bench/blob/438f8af/src/common/Bench.ts#L207)
 
 ___
 
@@ -728,7 +728,7 @@ ___
 
 #### Defined in
 
-common/Bench.ts:312
+[common/Bench.ts:312](https://github.com/zimmed/bench/blob/438f8af/src/common/Bench.ts#L312)
 
 ___
 
@@ -752,7 +752,7 @@ ___
 
 #### Defined in
 
-common/Bench.ts:315
+[common/Bench.ts:315](https://github.com/zimmed/bench/blob/438f8af/src/common/Bench.ts#L315)
 
 ___
 
@@ -777,7 +777,7 @@ ___
 
 #### Defined in
 
-common/Bench.ts:329
+[common/Bench.ts:329](https://github.com/zimmed/bench/blob/438f8af/src/common/Bench.ts#L329)
 
 ▸ **trial**(`fn`, `isAsync`): `void`
 
@@ -798,7 +798,7 @@ common/Bench.ts:329
 
 #### Defined in
 
-common/Bench.ts:330
+[common/Bench.ts:330](https://github.com/zimmed/bench/blob/438f8af/src/common/Bench.ts#L330)
 
 ▸ **trial**(`name`, `fn`, `isAsync?`): `void`
 
@@ -820,7 +820,7 @@ common/Bench.ts:330
 
 #### Defined in
 
-common/Bench.ts:331
+[common/Bench.ts:331](https://github.com/zimmed/bench/blob/438f8af/src/common/Bench.ts#L331)
 
 ▸ **trial**(`name`, `fn`, `isAsync`): `void`
 
@@ -842,7 +842,7 @@ common/Bench.ts:331
 
 #### Defined in
 
-common/Bench.ts:332
+[common/Bench.ts:332](https://github.com/zimmed/bench/blob/438f8af/src/common/Bench.ts#L332)
 
 ▸ **trial**(`only`, `fn`, `isAsync?`): `void`
 
@@ -864,7 +864,7 @@ common/Bench.ts:332
 
 #### Defined in
 
-common/Bench.ts:333
+[common/Bench.ts:333](https://github.com/zimmed/bench/blob/438f8af/src/common/Bench.ts#L333)
 
 ▸ **trial**(`only`, `fn`, `isAsync`): `void`
 
@@ -886,7 +886,7 @@ common/Bench.ts:333
 
 #### Defined in
 
-common/Bench.ts:334
+[common/Bench.ts:334](https://github.com/zimmed/bench/blob/438f8af/src/common/Bench.ts#L334)
 
 ▸ **trial**(`only`, `name`, `fn`, `isAsync?`): `void`
 
@@ -909,7 +909,7 @@ common/Bench.ts:334
 
 #### Defined in
 
-common/Bench.ts:335
+[common/Bench.ts:335](https://github.com/zimmed/bench/blob/438f8af/src/common/Bench.ts#L335)
 
 ▸ **trial**(`only`, `name`, `fn`, `isAsync`): `void`
 
@@ -932,7 +932,7 @@ common/Bench.ts:335
 
 #### Defined in
 
-common/Bench.ts:336
+[common/Bench.ts:336](https://github.com/zimmed/bench/blob/438f8af/src/common/Bench.ts#L336)
 
 ___
 
@@ -950,7 +950,7 @@ ___
 
 #### Defined in
 
-common/Bench.ts:189
+[common/Bench.ts:189](https://github.com/zimmed/bench/blob/438f8af/src/common/Bench.ts#L189)
 
 ___
 
@@ -974,7 +974,7 @@ ___
 
 #### Defined in
 
-common/Bench.ts:360
+[common/Bench.ts:360](https://github.com/zimmed/bench/blob/438f8af/src/common/Bench.ts#L360)
 
 ___
 
@@ -998,7 +998,7 @@ ___
 
 #### Defined in
 
-common/Bench.ts:325
+[common/Bench.ts:325](https://github.com/zimmed/bench/blob/438f8af/src/common/Bench.ts#L325)
 
 ___
 
@@ -1022,7 +1022,7 @@ ___
 
 #### Defined in
 
-common/Bench.ts:110
+[common/Bench.ts:110](https://github.com/zimmed/bench/blob/438f8af/src/common/Bench.ts#L110)
 
 ___
 
@@ -1046,4 +1046,4 @@ ___
 
 #### Defined in
 
-common/Bench.ts:114
+[common/Bench.ts:114](https://github.com/zimmed/bench/blob/438f8af/src/common/Bench.ts#L114)

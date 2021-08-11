@@ -22,7 +22,7 @@ function command() {
   return argv.join(' ');
 }
 
-export default class NodeBench extends Bench {
+export class NodeBench extends Bench {
   static lock = mutexify.promise(process.nextTick.bind(process));
 
   log(msg: string, eol = true) {
@@ -121,3 +121,5 @@ export {
   assertType,
   assertNotType,
 };
+
+export default NodeBench;

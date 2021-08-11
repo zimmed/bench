@@ -1,6 +1,6 @@
 import Bench, { _singletonMethods } from '../common/Bench';
 
-export default class WebBench extends Bench {
+export class WebBench extends Bench {
   logBuffer = '';
 
   log(msg: string, eol = true) {
@@ -74,3 +74,5 @@ export {
   assertType,
   assertNotType,
 };
+
+export default WebBench;

@@ -19,7 +19,7 @@ First, edit existing or create new .npmrc file in your project root, and add:
 
 Then you can use:
 
-`$ npm i --save @zimmed/bennch`
+`$ npm i --save @zimmed/bench`
 
 ## Simple Usage
 
@@ -264,61 +264,69 @@ export default async function main() {
     .reduce((o, _, i) => ({ ...o, [`key-${i}`]: i }), {} as { [k: string]: number });
   const map = new Map(Object.entries(obj));
   const results = await Promise.all([
-    benchmark.bench('Iterate over 1000 keys', () => {
-      let i = 0;
+    benchmark.bench(
+      'Iterate over 1000 keys',
+      () => {
+        let i = 0;
 
-      benchmark.afterEach(() => {
-        assertEq(i, 1000);
-        i = 0;
-      });
+        benchmark.afterEach(() => {
+          assertEq(i, 1000);
+          i = 0;
+        });
 
-      benchmark.trial('Map', () => {
-        for (const key of map) i++;
-      });
-      benchmark.trial('Object', () => {
-        for (const key in obj) i++;
-      });
-      benchmark.trial('Object (safe)', () => {
-        const keys = Object.keys(obj);
+        benchmark.trial('Map', () => {
+          for (const key of map) i++;
+        });
+        benchmark.trial('Object', () => {
+          for (const key in obj) i++;
+        });
+        benchmark.trial('Object (safe)', () => {
+          const keys = Object.keys(obj);
 
-        for (const key of keys) i++;
-      });
-    }, 1000),
-    benchmark.bench('Random lookup by key in map of 1K entries', () => {
-      let index = -1;
-      let key = '';
-      let has: boolean | null = null;
+          for (const key of keys) i++;
+        });
+      },
+      1000
+    ),
+    benchmark.bench(
+      'Random lookup by key in map of 1K entries',
+      () => {
+        let index = -1;
+        let key = '';
+        let has: boolean | null = null;
 
-      benchmark.beforeEach(() => {
-        index = Math.floor(Math.random() * 2000);
-        key = `key-${index}`;
-        assertGte(element, 0);
-      });
-      benchmark.afterEach(() => {
-        assertType(has, 'boolean');
-        assert(index < 1000 ? has : !has);
-        index = -1;
-        key = '';
-        has = null;
-      });
+        benchmark.beforeEach(() => {
+          index = Math.floor(Math.random() * 2000);
+          key = `key-${index}`;
+          assertGte(element, 0);
+        });
+        benchmark.afterEach(() => {
+          assertType(has, 'boolean');
+          assert(index < 1000 ? has : !has);
+          index = -1;
+          key = '';
+          has = null;
+        });
 
-      benchmark.trial('Set', () => {
-        has = map.has(key);
-      });
-      benchmark.trial('Object', () => {
-        has = typeof obj[key] === 'number';
-      });
-      benchmark.trial('Object (safe)', () => {
-        has = Object.prototype.hasOwnProperty.apply(obj, [key]);
-      });
-    }, 10000),
+        benchmark.trial('Set', () => {
+          has = map.has(key);
+        });
+        benchmark.trial('Object', () => {
+          has = typeof obj[key] === 'number';
+        });
+        benchmark.trial('Object (safe)', () => {
+          has = Object.prototype.hasOwnProperty.apply(obj, [key]);
+        });
+      },
+      10000
+    ),
   ]);
 
   console.log('\n Summary \n');
   Bench.overallScores(results).forEach(({ name, place, score }) => {
     const prefix = place === 0 ? '>>>' : place === 1 ? ' >>' : '  >';
 
-    console.log(`${prefix} ${name} average score: ${(score * 100).toFixed(1)%}`);
+    console.log(`${prefix} ${name} average score: ${(score * 100).toFixed(1)}%`);
   });
   console.log('');
 }

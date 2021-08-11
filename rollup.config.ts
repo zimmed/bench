@@ -10,11 +10,17 @@ const rollup = (name) => ({
     name === 'web'
       ? { file: `dist/${name}.umd.js`, name: 'Bench', format: 'umd', sourcemap: 'inline' }
       : null,
-    {
-      file: `dist/${name}.js`,
-      format: 'es',
-      sourcemap: 'inline',
-    },
+    name === 'web'
+      ? {
+          file: `dist/${name}.js`,
+          format: 'es',
+          sourcemap: 'inline',
+        }
+      : {
+          file: `dist/${name}.js`,
+          format: 'cjs',
+          sourcemap: 'inline',
+        },
   ].filter(Boolean),
   external: [],
   watch: { include: 'src/**' },
