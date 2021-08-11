@@ -6,10 +6,11 @@ A simple benchmarking / performance comparison library for node and web in TypeS
 
 > [Typedocs](docs/modules.md)
 
-![Jest Branch Coverage](coverage/badge-branches.svg)
-![Jest Function Coverage](coverage/badge-functions.svg)
-![Jest Line Coverage](coverage/badge-lines.svg)
-![Jest Statement Coverage](coverage/badge-statements.svg)
+## Credits
+
+- Package is loosely based on [nanobench](https://www.npmjs.com/package/nanobench) by [Mathias Buus](https://github.com/mafintosh)
+
+- Mutual-exclusion locking module based on [mutexify](https://www.npmjs.com/package/mutexify) by [Mathias Buus](https://github.com/mafintosh)
 
 ## Installation
 

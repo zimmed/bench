@@ -111,12 +111,19 @@ export default class Bench implements IBench {
     return new this(name);
   }
 
-  static overallScores(results: Summary[][]) {
+  static createAndUnpack(name?: string) {
+    return _singletonMethods(this.create(name));
+  }
+
+  static overallScores(results: Summary[][], pick?: string[], omit?: string[]) {
     const scoresByTrial = results
       .filter(Boolean)
       .flat(1)
       .reduce(
-        (obj, r) => ({ ...obj, [r.name]: (obj[r.name as keyof typeof obj] || []).concat(r.score) }),
+        (obj, r) =>
+          (!pick || pick.includes(r.name)) && (!omit || !omit.includes(r.name))
+            ? { ...obj, [r.name]: (obj[r.name as keyof typeof obj] || []).concat(r.score) }
+            : obj,
         {} as { [k: string]: number[] }
       );
     const keys = Object.keys(scoresByTrial);
@@ -156,6 +163,7 @@ export default class Bench implements IBench {
     teardown: null | (() => void | Promise<void>) | ((b: IBench) => void | Promise<void>);
     before: null | (() => void | Promise<void>) | ((b: IBench) => void | Promise<void>);
     after: null | (() => void | Promise<void>) | ((b: IBench) => void | Promise<void>);
+    handler: any;
   } = {
     trials: new Set<Trial>(),
     one: false,
@@ -167,6 +175,7 @@ export default class Bench implements IBench {
     teardown: null,
     before: null,
     after: null,
+    handler: null,
   };
 
   log(msg: string, eol?: boolean) {
@@ -177,7 +186,17 @@ export default class Bench implements IBench {
     console.log(msg);
   }
 
-  constructor(name = 'Benchmark') {
+  finished() {
+    if (this.state.cur) {
+      this.error(`Benchmark suite "${this.name}" never finished`);
+    } else {
+      this.log(
+        `All ${this.name} benchmarks completed in ${prettyHrtime([0, this.state.totalClock])}\n`
+      );
+    }
+  }
+
+  constructor(name = 'Benchmark Suite') {
     this.name = name;
   }
 
@@ -216,6 +235,7 @@ export default class Bench implements IBench {
     state.teardown = null;
     state.cur = false;
     state.totalClock = 0;
+    state.handler = null;
   }
 
   assert(test: boolean | (() => boolean) | (() => Future<boolean>), message?: string) {
@@ -408,11 +428,13 @@ export default class Bench implements IBench {
           let clockEnd = [0, 0];
           let clockDiff = 0;
 
+          clearTimeout(this.state.handler);
           if (this.state.one && !only) return res(undefined);
           if (!this.state.runs) this.printHeader();
           this.state.runs += 1;
 
           const release = await this.lock();
+          clearTimeout(this.state.handler);
 
           this.state.cur = true;
           this.log(`OP: ${name} [x${iterations.toLocaleString()}]`);
@@ -432,8 +454,8 @@ export default class Bench implements IBench {
               clockStart = hrtime();
               this.log(`    # ${t.name || `Trial ${i}`}`, false);
               while (++j < iterations) {
-                let startTime = [0, 0];
-                let endTime = [0, 0];
+                let startTime: [number, number];
+                let endTime: [number, number];
                 let diff;
                 const start = () => (startTime = hrtime());
                 const end = () => (endTime = hrtime());
@@ -443,11 +465,11 @@ export default class Bench implements IBench {
                   await (this.state.before as (b: IBench) => void | Promise<void>)(this);
                 }
                 if (t.async) {
-                  start();
+                  startTime = hrtime();
                   await t.fn(b);
                   endTime ||= hrtime();
                 } else {
-                  start();
+                  startTime = hrtime();
                   t.fn(b);
                   endTime ||= hrtime();
                 }
@@ -519,11 +541,14 @@ export default class Bench implements IBench {
           rej(e);
         }
       });
+    }).then((data) => {
+      this.state.handler = setTimeout(() => this.finished(), 1000);
+      return data;
     });
   }
 }
 
-export function _singletonMethods(singleton = Bench.create('Default')): IBench {
+export function _singletonMethods(singleton = Bench.create()): IBench {
   return `
     log error xbench bench xtrial trial setUp tearDown beforeEach afterEach assert
     assertExists assertEq assertNotEq assertLength assertType assertLt assertGt

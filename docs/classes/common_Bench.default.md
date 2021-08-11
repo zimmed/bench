@@ -53,6 +53,7 @@
 - [beforeEach](common_Bench.default.md#beforeeach)
 - [bench](common_Bench.default.md#bench)
 - [error](common_Bench.default.md#error)
+- [finished](common_Bench.default.md#finished)
 - [log](common_Bench.default.md#log)
 - [printHeader](common_Bench.default.md#printheader)
 - [reset](common_Bench.default.md#reset)
@@ -63,6 +64,7 @@
 - [xbench](common_Bench.default.md#xbench)
 - [xtrial](common_Bench.default.md#xtrial)
 - [create](common_Bench.default.md#create)
+- [createAndUnpack](common_Bench.default.md#createandunpack)
 - [overallScores](common_Bench.default.md#overallscores)
 
 ## Constructors
@@ -75,11 +77,11 @@
 
 | Name | Type | Default value |
 | :------ | :------ | :------ |
-| `name` | `string` | `'Benchmark'` |
+| `name` | `string` | `'Benchmark Suite'` |
 
 #### Defined in
 
-[common/Bench.ts:180](https://github.com/zimmed/bench/blob/0c20fc7/src/common/Bench.ts#L180)
+[common/Bench.ts:199](https://github.com/zimmed/bench/blob/e5db58e/src/common/Bench.ts#L199)
 
 ## Properties
 
@@ -89,7 +91,7 @@
 
 #### Defined in
 
-[common/Bench.ts:146](https://github.com/zimmed/bench/blob/0c20fc7/src/common/Bench.ts#L146)
+[common/Bench.ts:153](https://github.com/zimmed/bench/blob/e5db58e/src/common/Bench.ts#L153)
 
 ___
 
@@ -104,6 +106,7 @@ ___
 | `after` | ``null`` \| () => `void` \| `Promise`<`void`\> \| (`b`: [`IBench`](../interfaces/common_Bench.IBench.md)) => `void` \| `Promise`<`void`\> |
 | `before` | ``null`` \| () => `void` \| `Promise`<`void`\> \| (`b`: [`IBench`](../interfaces/common_Bench.IBench.md)) => `void` \| `Promise`<`void`\> |
 | `cur` | `boolean` |
+| `handler` | `any` |
 | `one` | `boolean` |
 | `oneTrial` | `boolean` |
 | `runs` | `number` |
@@ -114,7 +117,7 @@ ___
 
 #### Defined in
 
-[common/Bench.ts:148](https://github.com/zimmed/bench/blob/0c20fc7/src/common/Bench.ts#L148)
+[common/Bench.ts:155](https://github.com/zimmed/bench/blob/e5db58e/src/common/Bench.ts#L155)
 
 ___
 
@@ -124,7 +127,7 @@ ___
 
 #### Defined in
 
-[common/Bench.ts:108](https://github.com/zimmed/bench/blob/0c20fc7/src/common/Bench.ts#L108)
+[common/Bench.ts:108](https://github.com/zimmed/bench/blob/e5db58e/src/common/Bench.ts#L108)
 
 ___
 
@@ -134,7 +137,7 @@ ___
 
 #### Defined in
 
-[common/Bench.ts:107](https://github.com/zimmed/bench/blob/0c20fc7/src/common/Bench.ts#L107)
+[common/Bench.ts:107](https://github.com/zimmed/bench/blob/e5db58e/src/common/Bench.ts#L107)
 
 ## Accessors
 
@@ -148,7 +151,7 @@ ___
 
 #### Defined in
 
-[common/Bench.ts:138](https://github.com/zimmed/bench/blob/0c20fc7/src/common/Bench.ts#L138)
+[common/Bench.ts:145](https://github.com/zimmed/bench/blob/e5db58e/src/common/Bench.ts#L145)
 
 ___
 
@@ -162,7 +165,7 @@ ___
 
 #### Defined in
 
-[common/Bench.ts:142](https://github.com/zimmed/bench/blob/0c20fc7/src/common/Bench.ts#L142)
+[common/Bench.ts:149](https://github.com/zimmed/bench/blob/e5db58e/src/common/Bench.ts#L149)
 
 ## Methods
 
@@ -186,7 +189,7 @@ ___
 
 #### Defined in
 
-[common/Bench.ts:321](https://github.com/zimmed/bench/blob/0c20fc7/src/common/Bench.ts#L321)
+[common/Bench.ts:341](https://github.com/zimmed/bench/blob/e5db58e/src/common/Bench.ts#L341)
 
 ___
 
@@ -211,7 +214,7 @@ ___
 
 #### Defined in
 
-[common/Bench.ts:221](https://github.com/zimmed/bench/blob/0c20fc7/src/common/Bench.ts#L221)
+[common/Bench.ts:241](https://github.com/zimmed/bench/blob/e5db58e/src/common/Bench.ts#L241)
 
 ___
 
@@ -237,7 +240,7 @@ ___
 
 #### Defined in
 
-[common/Bench.ts:241](https://github.com/zimmed/bench/blob/0c20fc7/src/common/Bench.ts#L241)
+[common/Bench.ts:261](https://github.com/zimmed/bench/blob/e5db58e/src/common/Bench.ts#L261)
 
 ___
 
@@ -262,7 +265,7 @@ ___
 
 #### Defined in
 
-[common/Bench.ts:253](https://github.com/zimmed/bench/blob/0c20fc7/src/common/Bench.ts#L253)
+[common/Bench.ts:273](https://github.com/zimmed/bench/blob/e5db58e/src/common/Bench.ts#L273)
 
 ___
 
@@ -288,7 +291,7 @@ ___
 
 #### Defined in
 
-[common/Bench.ts:299](https://github.com/zimmed/bench/blob/0c20fc7/src/common/Bench.ts#L299)
+[common/Bench.ts:319](https://github.com/zimmed/bench/blob/e5db58e/src/common/Bench.ts#L319)
 
 ___
 
@@ -314,7 +317,7 @@ ___
 
 #### Defined in
 
-[common/Bench.ts:302](https://github.com/zimmed/bench/blob/0c20fc7/src/common/Bench.ts#L302)
+[common/Bench.ts:322](https://github.com/zimmed/bench/blob/e5db58e/src/common/Bench.ts#L322)
 
 ___
 
@@ -340,7 +343,7 @@ ___
 
 #### Defined in
 
-[common/Bench.ts:259](https://github.com/zimmed/bench/blob/0c20fc7/src/common/Bench.ts#L259)
+[common/Bench.ts:279](https://github.com/zimmed/bench/blob/e5db58e/src/common/Bench.ts#L279)
 
 ___
 
@@ -366,7 +369,7 @@ ___
 
 #### Defined in
 
-[common/Bench.ts:308](https://github.com/zimmed/bench/blob/0c20fc7/src/common/Bench.ts#L308)
+[common/Bench.ts:328](https://github.com/zimmed/bench/blob/e5db58e/src/common/Bench.ts#L328)
 
 ___
 
@@ -392,7 +395,7 @@ ___
 
 #### Defined in
 
-[common/Bench.ts:305](https://github.com/zimmed/bench/blob/0c20fc7/src/common/Bench.ts#L305)
+[common/Bench.ts:325](https://github.com/zimmed/bench/blob/e5db58e/src/common/Bench.ts#L325)
 
 ___
 
@@ -418,7 +421,7 @@ ___
 
 #### Defined in
 
-[common/Bench.ts:247](https://github.com/zimmed/bench/blob/0c20fc7/src/common/Bench.ts#L247)
+[common/Bench.ts:267](https://github.com/zimmed/bench/blob/e5db58e/src/common/Bench.ts#L267)
 
 ___
 
@@ -443,7 +446,7 @@ ___
 
 #### Defined in
 
-[common/Bench.ts:256](https://github.com/zimmed/bench/blob/0c20fc7/src/common/Bench.ts#L256)
+[common/Bench.ts:276](https://github.com/zimmed/bench/blob/e5db58e/src/common/Bench.ts#L276)
 
 ___
 
@@ -469,7 +472,7 @@ ___
 
 #### Defined in
 
-[common/Bench.ts:265](https://github.com/zimmed/bench/blob/0c20fc7/src/common/Bench.ts#L265)
+[common/Bench.ts:285](https://github.com/zimmed/bench/blob/e5db58e/src/common/Bench.ts#L285)
 
 ___
 
@@ -495,7 +498,7 @@ ___
 
 #### Defined in
 
-[common/Bench.ts:285](https://github.com/zimmed/bench/blob/0c20fc7/src/common/Bench.ts#L285)
+[common/Bench.ts:305](https://github.com/zimmed/bench/blob/e5db58e/src/common/Bench.ts#L305)
 
 ___
 
@@ -521,7 +524,7 @@ ___
 
 #### Defined in
 
-[common/Bench.ts:271](https://github.com/zimmed/bench/blob/0c20fc7/src/common/Bench.ts#L271)
+[common/Bench.ts:291](https://github.com/zimmed/bench/blob/e5db58e/src/common/Bench.ts#L291)
 
 ___
 
@@ -545,7 +548,7 @@ ___
 
 #### Defined in
 
-[common/Bench.ts:318](https://github.com/zimmed/bench/blob/0c20fc7/src/common/Bench.ts#L318)
+[common/Bench.ts:338](https://github.com/zimmed/bench/blob/e5db58e/src/common/Bench.ts#L338)
 
 ___
 
@@ -571,7 +574,7 @@ ___
 
 #### Defined in
 
-[common/Bench.ts:367](https://github.com/zimmed/bench/blob/0c20fc7/src/common/Bench.ts#L367)
+[common/Bench.ts:387](https://github.com/zimmed/bench/blob/e5db58e/src/common/Bench.ts#L387)
 
 ▸ **bench**(`only`, `name`, `body`, `iterations?`): `Promise`<[`Summary`](../modules/common_Bench.md#summary)[]\>
 
@@ -594,7 +597,7 @@ ___
 
 #### Defined in
 
-[common/Bench.ts:372](https://github.com/zimmed/bench/blob/0c20fc7/src/common/Bench.ts#L372)
+[common/Bench.ts:392](https://github.com/zimmed/bench/blob/e5db58e/src/common/Bench.ts#L392)
 
 ___
 
@@ -618,7 +621,21 @@ ___
 
 #### Defined in
 
-[common/Bench.ts:176](https://github.com/zimmed/bench/blob/0c20fc7/src/common/Bench.ts#L176)
+[common/Bench.ts:185](https://github.com/zimmed/bench/blob/e5db58e/src/common/Bench.ts#L185)
+
+___
+
+### finished
+
+▸ **finished**(): `void`
+
+#### Returns
+
+`void`
+
+#### Defined in
+
+[common/Bench.ts:189](https://github.com/zimmed/bench/blob/e5db58e/src/common/Bench.ts#L189)
 
 ___
 
@@ -643,7 +660,7 @@ ___
 
 #### Defined in
 
-[common/Bench.ts:172](https://github.com/zimmed/bench/blob/0c20fc7/src/common/Bench.ts#L172)
+[common/Bench.ts:181](https://github.com/zimmed/bench/blob/e5db58e/src/common/Bench.ts#L181)
 
 ___
 
@@ -657,7 +674,7 @@ ___
 
 #### Defined in
 
-[common/Bench.ts:184](https://github.com/zimmed/bench/blob/0c20fc7/src/common/Bench.ts#L184)
+[common/Bench.ts:203](https://github.com/zimmed/bench/blob/e5db58e/src/common/Bench.ts#L203)
 
 ___
 
@@ -671,7 +688,7 @@ ___
 
 #### Defined in
 
-[common/Bench.ts:207](https://github.com/zimmed/bench/blob/0c20fc7/src/common/Bench.ts#L207)
+[common/Bench.ts:226](https://github.com/zimmed/bench/blob/e5db58e/src/common/Bench.ts#L226)
 
 ___
 
@@ -695,7 +712,7 @@ ___
 
 #### Defined in
 
-[common/Bench.ts:312](https://github.com/zimmed/bench/blob/0c20fc7/src/common/Bench.ts#L312)
+[common/Bench.ts:332](https://github.com/zimmed/bench/blob/e5db58e/src/common/Bench.ts#L332)
 
 ___
 
@@ -719,7 +736,7 @@ ___
 
 #### Defined in
 
-[common/Bench.ts:315](https://github.com/zimmed/bench/blob/0c20fc7/src/common/Bench.ts#L315)
+[common/Bench.ts:335](https://github.com/zimmed/bench/blob/e5db58e/src/common/Bench.ts#L335)
 
 ___
 
@@ -744,7 +761,7 @@ ___
 
 #### Defined in
 
-[common/Bench.ts:329](https://github.com/zimmed/bench/blob/0c20fc7/src/common/Bench.ts#L329)
+[common/Bench.ts:349](https://github.com/zimmed/bench/blob/e5db58e/src/common/Bench.ts#L349)
 
 ▸ **trial**(`fn`, `isAsync`): `void`
 
@@ -765,7 +782,7 @@ ___
 
 #### Defined in
 
-[common/Bench.ts:330](https://github.com/zimmed/bench/blob/0c20fc7/src/common/Bench.ts#L330)
+[common/Bench.ts:350](https://github.com/zimmed/bench/blob/e5db58e/src/common/Bench.ts#L350)
 
 ▸ **trial**(`name`, `fn`, `isAsync?`): `void`
 
@@ -787,7 +804,7 @@ ___
 
 #### Defined in
 
-[common/Bench.ts:331](https://github.com/zimmed/bench/blob/0c20fc7/src/common/Bench.ts#L331)
+[common/Bench.ts:351](https://github.com/zimmed/bench/blob/e5db58e/src/common/Bench.ts#L351)
 
 ▸ **trial**(`name`, `fn`, `isAsync`): `void`
 
@@ -809,7 +826,7 @@ ___
 
 #### Defined in
 
-[common/Bench.ts:332](https://github.com/zimmed/bench/blob/0c20fc7/src/common/Bench.ts#L332)
+[common/Bench.ts:352](https://github.com/zimmed/bench/blob/e5db58e/src/common/Bench.ts#L352)
 
 ▸ **trial**(`only`, `fn`, `isAsync?`): `void`
 
@@ -831,7 +848,7 @@ ___
 
 #### Defined in
 
-[common/Bench.ts:333](https://github.com/zimmed/bench/blob/0c20fc7/src/common/Bench.ts#L333)
+[common/Bench.ts:353](https://github.com/zimmed/bench/blob/e5db58e/src/common/Bench.ts#L353)
 
 ▸ **trial**(`only`, `fn`, `isAsync`): `void`
 
@@ -853,7 +870,7 @@ ___
 
 #### Defined in
 
-[common/Bench.ts:334](https://github.com/zimmed/bench/blob/0c20fc7/src/common/Bench.ts#L334)
+[common/Bench.ts:354](https://github.com/zimmed/bench/blob/e5db58e/src/common/Bench.ts#L354)
 
 ▸ **trial**(`only`, `name`, `fn`, `isAsync?`): `void`
 
@@ -876,7 +893,7 @@ ___
 
 #### Defined in
 
-[common/Bench.ts:335](https://github.com/zimmed/bench/blob/0c20fc7/src/common/Bench.ts#L335)
+[common/Bench.ts:355](https://github.com/zimmed/bench/blob/e5db58e/src/common/Bench.ts#L355)
 
 ▸ **trial**(`only`, `name`, `fn`, `isAsync`): `void`
 
@@ -899,7 +916,7 @@ ___
 
 #### Defined in
 
-[common/Bench.ts:336](https://github.com/zimmed/bench/blob/0c20fc7/src/common/Bench.ts#L336)
+[common/Bench.ts:356](https://github.com/zimmed/bench/blob/e5db58e/src/common/Bench.ts#L356)
 
 ___
 
@@ -913,7 +930,7 @@ ___
 
 #### Defined in
 
-[common/Bench.ts:189](https://github.com/zimmed/bench/blob/0c20fc7/src/common/Bench.ts#L189)
+[common/Bench.ts:208](https://github.com/zimmed/bench/blob/e5db58e/src/common/Bench.ts#L208)
 
 ___
 
@@ -937,7 +954,7 @@ ___
 
 #### Defined in
 
-[common/Bench.ts:363](https://github.com/zimmed/bench/blob/0c20fc7/src/common/Bench.ts#L363)
+[common/Bench.ts:383](https://github.com/zimmed/bench/blob/e5db58e/src/common/Bench.ts#L383)
 
 ___
 
@@ -961,7 +978,7 @@ ___
 
 #### Defined in
 
-[common/Bench.ts:325](https://github.com/zimmed/bench/blob/0c20fc7/src/common/Bench.ts#L325)
+[common/Bench.ts:345](https://github.com/zimmed/bench/blob/e5db58e/src/common/Bench.ts#L345)
 
 ___
 
@@ -981,19 +998,41 @@ ___
 
 #### Defined in
 
-[common/Bench.ts:110](https://github.com/zimmed/bench/blob/0c20fc7/src/common/Bench.ts#L110)
+[common/Bench.ts:110](https://github.com/zimmed/bench/blob/e5db58e/src/common/Bench.ts#L110)
+
+___
+
+### createAndUnpack
+
+▸ `Static` **createAndUnpack**(`name?`): [`IBench`](../interfaces/common_Bench.IBench.md)
+
+#### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `name?` | `string` |
+
+#### Returns
+
+[`IBench`](../interfaces/common_Bench.IBench.md)
+
+#### Defined in
+
+[common/Bench.ts:114](https://github.com/zimmed/bench/blob/e5db58e/src/common/Bench.ts#L114)
 
 ___
 
 ### overallScores
 
-▸ `Static` **overallScores**(`results`): { `name`: `string` ; `place`: `number` ; `score`: `number` ; `winner`: `boolean`  }[]
+▸ `Static` **overallScores**(`results`, `pick?`, `omit?`): { `name`: `string` ; `place`: `number` ; `score`: `number` ; `winner`: `boolean`  }[]
 
 #### Parameters
 
 | Name | Type |
 | :------ | :------ |
 | `results` | [`Summary`](../modules/common_Bench.md#summary)[][] |
+| `pick?` | `string`[] |
+| `omit?` | `string`[] |
 
 #### Returns
 
@@ -1001,4 +1040,4 @@ ___
 
 #### Defined in
 
-[common/Bench.ts:114](https://github.com/zimmed/bench/blob/0c20fc7/src/common/Bench.ts#L114)
+[common/Bench.ts:118](https://github.com/zimmed/bench/blob/e5db58e/src/common/Bench.ts#L118)

@@ -33,20 +33,6 @@ export class NodeBench extends Bench {
     process.stderr.write('\n' + msg + '\n');
   }
 
-  constructor(name?: string) {
-    super(name);
-
-    process.on('exit', () => {
-      if (this.state.cur) {
-        this.error(`Benchmark "${name}" was never finished`);
-      } else {
-        this.log(
-          `All ${name} benchmarks completed in ${prettyHrtime([0, this.state.totalClock])}\n`
-        );
-      }
-    });
-  }
-
   printHeader() {
     const cpus = os
       .cpus()
@@ -55,7 +41,7 @@ export class NodeBench extends Bench {
         {} as { [x: string]: number }
       );
 
-    this.log(`\n${this.package} [Node.js v${process.versions.node} - v8 v${process.versions.v8}]`);
+    this.log(`\n${this.package} [Node.js v${process.versions.node} - V8 v${process.versions.v8}]`);
     this.log(os.version());
     Object.entries(cpus).forEach(([model, count]) => {
       this.log(`CPU: ${count}x ${model}`);
