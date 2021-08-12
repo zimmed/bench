@@ -23,6 +23,7 @@ function command() {
 }
 
 export class NodeBench extends Bench {
+  static nextTick = process.nextTick.bind(process);
   static lock = mutexify.promise(process.nextTick.bind(process));
 
   log(msg: string, eol = true) {
@@ -59,6 +60,8 @@ export class NodeBench extends Bench {
 const {
   bench,
   xbench,
+  timedBench,
+  xtimedBench,
   trial,
   xtrial,
   log,
@@ -85,6 +88,8 @@ const {
 export {
   bench,
   xbench,
+  timedBench,
+  xtimedBench,
   trial,
   xtrial,
   log,

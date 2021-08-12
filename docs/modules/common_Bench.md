@@ -39,7 +39,7 @@
 
 #### Defined in
 
-[common/Bench.ts:6](https://github.com/zimmed/bench/blob/e5db58e/src/common/Bench.ts#L6)
+[src/common/Bench.ts:6](https://github.com/zimmed/bench/blob/7726202/src/common/Bench.ts#L6)
 
 ___
 
@@ -59,7 +59,7 @@ ___
 
 #### Defined in
 
-[common/Bench.ts:30](https://github.com/zimmed/bench/blob/e5db58e/src/common/Bench.ts#L30)
+[src/common/Bench.ts:30](https://github.com/zimmed/bench/blob/7726202/src/common/Bench.ts#L30)
 
 ___
 
@@ -69,7 +69,7 @@ ___
 
 #### Defined in
 
-[common/Bench.ts:21](https://github.com/zimmed/bench/blob/e5db58e/src/common/Bench.ts#L21)
+[src/common/Bench.ts:21](https://github.com/zimmed/bench/blob/7726202/src/common/Bench.ts#L21)
 
 ___
 
@@ -87,7 +87,7 @@ ___
 
 #### Defined in
 
-[common/Bench.ts:16](https://github.com/zimmed/bench/blob/e5db58e/src/common/Bench.ts#L16)
+[src/common/Bench.ts:16](https://github.com/zimmed/bench/blob/7726202/src/common/Bench.ts#L16)
 
 ___
 
@@ -97,7 +97,7 @@ ___
 
 #### Defined in
 
-[common/Bench.ts:18](https://github.com/zimmed/bench/blob/e5db58e/src/common/Bench.ts#L18)
+[src/common/Bench.ts:18](https://github.com/zimmed/bench/blob/7726202/src/common/Bench.ts#L18)
 
 ___
 
@@ -107,7 +107,7 @@ ___
 
 #### Defined in
 
-[common/Bench.ts:19](https://github.com/zimmed/bench/blob/e5db58e/src/common/Bench.ts#L19)
+[src/common/Bench.ts:19](https://github.com/zimmed/bench/blob/7726202/src/common/Bench.ts#L19)
 
 ## Functions
 
@@ -127,4 +127,4 @@ ___
 
 #### Defined in
 
-[common/Bench.ts:551](https://github.com/zimmed/bench/blob/e5db58e/src/common/Bench.ts#L551)
+[src/common/Bench.ts:754](https://github.com/zimmed/bench/blob/7726202/src/common/Bench.ts#L754)

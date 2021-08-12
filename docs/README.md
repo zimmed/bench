@@ -27,7 +27,7 @@ Then you can use:
 ### Node.js
 
 ```typescript
-// my-benchmarks.ts
+// my-benchmark.ts
 import { bench, trial, afterEach, assertLength } from '@zimmed/bench/node';
 
 bench(
@@ -41,7 +41,7 @@ bench(
       result = null;
     });
 
-    trial('Strings.prototype.split(string)', () => {
+    trial('String.prototype.split(string)', () => {
       result = str.split(' ');
     });
 
@@ -59,6 +59,7 @@ bench(
         result.push(str.slice(i, m.index));
         i = m.index + 1;
       }
+      if (i < str.length) result.push(str.slice(i));
     });
   },
   10000
@@ -66,7 +67,7 @@ bench(
 ```
 
 ```bash
-ts-node my-benchmarks.ts
+ts-node my-benchmark.ts
 ```
 
 ### Web (TypeScript)
@@ -85,7 +86,7 @@ bench(
       result = null;
     });
 
-    trial('Strings.prototype.split(string)', () => {
+    trial('String.prototype.split(string)', () => {
       result = str.split(' ');
     });
 
@@ -103,6 +104,7 @@ bench(
         result.push(str.slice(i, m.index));
         i = m.index + 1;
       }
+      if (i < str.length) result.push(str.slice(i));
     });
   },
   10000
@@ -124,7 +126,7 @@ bench(
           result = null;
         });
 
-        Bench.trial('Strings.prototype.split(string)', () => {
+        Bench.trial('String.prototype.split(string)', () => {
           result = str.split(' ');
         });
 
@@ -142,6 +144,7 @@ bench(
             result.push(str.slice(i, m.index));
             i = m.index + 1;
           }
+          if (i < str.length) result.push(str.slice(i));
         });
       },
       10000

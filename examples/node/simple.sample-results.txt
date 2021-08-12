@@ -1,0 +1,21 @@
+@zimmed/bench v0.3.0 [Node.js v16.6.1 - V8 v9.2.230.21-node.19]
+Darwin Kernel Version 19.6.0: Thu May  6 00:48:39 PDT 2021; root:xnu-6153.141.33~1/RELEASE_X86_64
+CPU: 16x Intel(R) Core(TM) i9-9980HK CPU @ 2.40GHz
+RAM: 64 GiB Total - 27 GiB Free
+> node examples/node/simple.js
+
+# Default #
+
+OP: Splitting a string [~3 s]
+    # String.prototype.split(string).... (26,044,942 ops)
+        Avg: 8,339,245 ops/sec (119 ns/op)
+    # String.prototype.split(RegExp).... (8,589,969 ops)
+        Avg: 2,745,302 ops/sec (364 ns/op)
+    # Unnecessarily naive implementation.... (4,690,778 ops)
+        Avg: 1,527,799 ops/sec (654 ns/op)
+>>> String.prototype.split(string) ~119 ns/op (305.9%)
+ >  String.prototype.split(RegExp) ~364 ns/op (100.0%)
+ >  Unnecessarily naive implementation ~654 ns/op (55.7%)
+
+All Default benchmarks completed in 10 s
+

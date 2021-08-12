@@ -1,8 +1,18 @@
 const Bench = require('@zimmed/bench/node').default;
-const LinkedSet = require('./utils/LinkedSet');
+const LinkedSet = require('../utils/LinkedSet');
 
-const { bench, trial, assertEq, assertExists, assertLength, assertType, afterEach, beforeEach } =
-  Bench.createAndUnpack('List Suite');
+const {
+  bench,
+  trial,
+  tearDown,
+  assertEq,
+  assertExists,
+  assertLength,
+  assertType,
+  afterEach,
+  beforeEach,
+  timedBench,
+} = Bench.createAndUnpack('List Suite');
 
 function fillSet(set, times = 1000) {
   let i = -1;
@@ -52,15 +62,13 @@ function prependLinkedSet(set, times = 1000) {
 
 async function main() {
   const results = await Promise.all([
-    bench(
+    timedBench(
       'Create list instance',
       () => {
         let list;
 
-        afterEach(() => {
+        tearDown(() => {
           assertExists(list);
-          assertLength(list, 0);
-          list = null;
         });
 
         trial('Array', () => {
@@ -73,7 +81,58 @@ async function main() {
           list = new LinkedSet();
         });
       },
-      1e7
+      3000
+    ),
+
+    bench(
+      'Clear 10k list',
+      () => {
+        const from = Array(1e4)
+          .fill(0)
+          .map((_, i) => i);
+        let arr, set, linked;
+
+        beforeEach(() => {
+          arr = from.slice();
+          set = new Set(from);
+          linked = new LinkedSet(from);
+        });
+
+        trial('Array', () => {
+          arr.splice(0);
+        });
+        trial('Set', () => {
+          set.clear();
+        });
+        trial('LinkedSet', () => {
+          linked.clear();
+        });
+      },
+      1e3
+    ),
+
+    timedBench(
+      'Append (clear over 10k)',
+      () => {
+        const arr = [];
+        const set = new Set();
+        const linked = new LinkedSet();
+        const e = 17;
+
+        trial('Array', () => {
+          if (arr.length > 1e4) arr.splice(0);
+          arr.push(e);
+        });
+        trial('Set', () => {
+          if (set.size > 1e4) set.clear();
+          set.add(e);
+        });
+        trial('LinkedSet', () => {
+          if (linked.size > 1e4) linked.clear();
+          linked.add(e);
+        });
+      },
+      3000
     ),
 
     bench(
@@ -106,6 +165,25 @@ async function main() {
       1000
     ),
 
+    timedBench(
+      'Prepend (clear over 10k)',
+      () => {
+        const arr = [];
+        const linked = new LinkedSet();
+        const e = 17;
+
+        trial('Array', () => {
+          if (arr.length > 1e4) arr.splice(0);
+          arr.unshift(e);
+        });
+        trial('LinkedSet', () => {
+          if (linked.size > 1e4) linked.clear();
+          linked.insert(e);
+        });
+      },
+      3000
+    ),
+
     bench(
       'Prepend 10K elements',
       () => {
@@ -125,9 +203,6 @@ async function main() {
 
         trial('Array', () => {
           list = prependArr(arr, 1e4);
-        });
-        trial('Set (append)', () => {
-          list = fillSet(set, 1e4);
         });
         trial('LinkedSet', () => {
           list = prependLinkedSet(linked, 1e4);
@@ -251,6 +326,40 @@ async function main() {
       100
     ),
 
+    timedBench(
+      'Iterate over 200 elements',
+      () => {
+        const arr = Array(200)
+          .fill(0)
+          .map((_, i) => i);
+        const set = new Set(arr);
+        const linked = new LinkedSet(arr);
+        let j = 0;
+        let k = 0;
+        let l = 0;
+
+        trial('Array', () => {
+          const len = arr.length;
+          let i = -1;
+
+          while (++i < len) {
+            if (arr[i] != null) j++;
+          }
+        });
+        trial('Set', () => {
+          for (const e of set) {
+            if (e != null) k++;
+          }
+        });
+        trial('LinkedSet', () => {
+          for (const e of linked) {
+            if (e != null) l++;
+          }
+        });
+      },
+      3000
+    ),
+
     bench(
       'Iterate over 100k elements',
       () => {
@@ -325,6 +434,58 @@ async function main() {
         });
       },
       50
+    ),
+
+    timedBench(
+      'Successfull lookup on 200-element lists',
+      () => {
+        const arr = Array(200)
+          .fill(0)
+          .map((_, i) => i);
+        const set = new Set(arr);
+        const linked = new LinkedSet(arr);
+        const e = 47;
+        let j = 0;
+        let k = 0;
+        let l = 0;
+
+        trial('Array', () => {
+          if (arr.includes(e)) j++;
+        });
+        trial('Set', () => {
+          if (set.has(e)) k++;
+        });
+        trial('LinkedSet', () => {
+          if (linked.has(e)) l++;
+        });
+      },
+      3000
+    ),
+
+    timedBench(
+      'Unsuccessfull lookup on 200-element lists',
+      () => {
+        const arr = Array(200)
+          .fill(0)
+          .map((_, i) => i);
+        const set = new Set(arr);
+        const linked = new LinkedSet(arr);
+        const e = 350;
+        let j = 0;
+        let k = 0;
+        let l = 0;
+
+        trial('Array', () => {
+          if (!arr.includes(e)) j++;
+        });
+        trial('Set', () => {
+          if (!set.has(e)) k++;
+        });
+        trial('LinkedSet', () => {
+          if (!linked.has(e)) l++;
+        });
+      },
+      3000
     ),
 
     bench(

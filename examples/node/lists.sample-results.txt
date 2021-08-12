@@ -1,0 +1,177 @@
+
+@zimmed/bench v0.3.0 [Node.js v16.6.1 - V8 v9.2.230.21-node.19]
+Darwin Kernel Version 19.6.0: Thu May  6 00:48:39 PDT 2021; root:xnu-6153.141.33~1/RELEASE_X86_64
+CPU: 16x Intel(R) Core(TM) i9-9980HK CPU @ 2.40GHz
+RAM: 64 GiB Total - 27 GiB Free
+> node examples/node/lists.js
+
+# List Suite #
+
+OP: Create list instance [~3 s]
+    # Array..... (301,071,304 ops)
+        Avg: 97,518,081 ops/sec (10 ns/op)
+    # Set.... (101,879,614 ops)
+        Avg: 33,026,791 ops/sec (30 ns/op)
+    # LinkedSet.... (80,793,847 ops)
+        Avg: 26,788,197 ops/sec (37 ns/op)
+>>> Array ~10 ns/op (300.0%)
+ >  Set ~30 ns/op (100.0%)
+ >  LinkedSet ~37 ns/op (81.1%)
+
+OP: Clear 10k list [x1,000]
+    # Array... (1.85 s)
+        Avg: 106 μs/op σ 480 μs
+    # Set... (1.7 s)
+        Avg: 1.58 μs/op σ 3.34 μs
+    # LinkedSet... (1.49 s)
+        Avg: 1.48 μs/op σ 13 μs
+ >  Array ~347 μs/op (2.3%)
+>>> Set ~3.25 μs/op (243.4%)
+ >  LinkedSet ~7.9 μs/op (100.0%)
+
+OP: Append (clear over 10k) [~3 s]
+    # Array.... (293,578,802 ops)
+        Avg: 91,001,128 ops/sec (10 ns/op)
+    # Set..... (288,814,098 ops)
+        Avg: 93,701,695 ops/sec (10 ns/op)
+    # LinkedSet.... (332,369,130 ops)
+        Avg: 107,853,115 ops/sec (9 ns/op)
+ >  Array ~10 ns/op (100.0%)
+ >  Set ~10 ns/op (100.0%)
+>>> LinkedSet ~9 ns/op (111.1%)
+
+OP: Append 10K elements [x1,000]
+    # Array... (304 ms)
+        Avg: 41 μs/op σ 49 μs
+    # Set... (601 ms)
+        Avg: 596 μs/op σ 215 μs
+    # LinkedSet... (952 ms)
+        Avg: 944 μs/op σ 391 μs
+>>> Array ~66 μs/op (1073.0%)
+ >  Set ~704 μs/op (100.0%)
+ >  LinkedSet ~1.14 ms/op (61.7%)
+
+OP: Prepend (clear over 10k) [~3 s]
+    # Array... (5,907,717 ops)
+        Avg: 1,887,698 ops/sec (529 ns/op)
+    # LinkedSet.... (341,785,147 ops)
+        Avg: 112,096,622 ops/sec (8 ns/op)
+ >  Array ~529 ns/op (100.0%)
+>>> LinkedSet ~8 ns/op (6612.5%)
+
+OP: Prepend 10K elements [x100]
+    # Array... (543 ms)
+        Avg: 5.15 ms/op σ 430 μs
+    # LinkedSet... (133 ms)
+        Avg: 1.32 ms/op σ 1.03 ms
+ >  Array ~5.36 ms/op (100.0%)
+>>> LinkedSet ~1.84 ms/op (291.9%)
+
+OP: Delete 10k elements from 100k-element lists [x10]
+    # Array... (8.11 s)
+        Avg: 773 ms/op σ 297 ms
+    # Set... (239 ms)
+        Avg: 1.12 ms/op σ 753 μs
+    # LinkedSet... (196 ms)
+        Avg: 1.13 ms/op σ 844 μs
+ >  Array ~922 ms/op (0.2%)
+>>> Set ~1.5 ms/op (103.6%)
+ >  LinkedSet ~1.55 ms/op (100.0%)
+
+OP: Pop 10k elements from 100k-element lists [x100]
+    # Array... (3.36 s)
+        Avg: 54 μs/op σ 181 μs
+    # Set (shift)... (4.44 s)
+        Avg: 25 ms/op σ 2.65 ms
+    # LinkedSet... (1.88 s)
+        Avg: 240 μs/op σ 328 μs
+>>> Array ~145 μs/op (279.6%)
+ >  Set (shift) ~27 ms/op (1.5%)
+ >  LinkedSet ~404 μs/op (100.0%)
+
+OP: Shift 10k elements from 100k-element lists [x100]
+    # Array... (21 s)
+        Avg: 178 ms/op σ 5 ms
+    # Set... (4.56 s)
+        Avg: 26 ms/op σ 3.12 ms
+    # LinkedSet... (1.94 s)
+        Avg: 513 μs/op σ 351 μs
+ >  Array ~181 ms/op (15.4%)
+ >  Set ~28 ms/op (100.0%)
+>>> LinkedSet ~689 μs/op (4034.4%)
+
+OP: Iterate over 200 elements [~3 s]
+    # Array.... (9,254,574 ops)
+        Avg: 2,982,510 ops/sec (335 ns/op)
+    # Set.... (5,497,252 ops)
+        Avg: 1,781,248 ops/sec (561 ns/op)
+    # LinkedSet.... (4,702,217 ops)
+        Avg: 1,517,386 ops/sec (659 ns/op)
+>>> Array ~335 ns/op (167.5%)
+ >  Set ~561 ns/op (100.0%)
+ >  LinkedSet ~659 ns/op (85.1%)
+
+OP: Iterate over 100k elements [x100]
+    # Array... (3.48 s)
+        Avg: 315 μs/op σ 774 μs
+    # Set... (1.92 s)
+        Avg: 463 μs/op σ 372 μs
+    # LinkedSet... (1.96 s)
+        Avg: 439 μs/op σ 927 μs
+ >  Array ~702 μs/op (100.0%)
+>>> Set ~649 μs/op (108.2%)
+ >  LinkedSet ~902 μs/op (77.8%)
+
+OP: forEach iteration over 100k elements [x50]
+    # Array... (1.73 s)
+        Avg: 1.18 ms/op σ 438 μs
+    # Set... (1.01 s)
+        Avg: 849 μs/op σ 197 μs
+    # LinkedSet... (1.36 s)
+        Avg: 5.27 ms/op σ 4.76 ms
+ >  Array ~1.4 ms/op (100.0%)
+>>> Set ~947 μs/op (147.7%)
+ >  LinkedSet ~7.65 ms/op (18.3%)
+
+OP: Successfull lookup on 200-element lists [~3 s]
+    # Array.... (44,458,354 ops)
+        Avg: 14,492,133 ops/sec (69 ns/op)
+    # Set.... (208,736,782 ops)
+        Avg: 67,411,385 ops/sec (14 ns/op)
+    # LinkedSet.... (313,329,304 ops)
+        Avg: 101,201,245 ops/sec (9 ns/op)
+ >  Array ~69 ns/op (20.3%)
+ >  Set ~14 ns/op (100.0%)
+>>> LinkedSet ~9 ns/op (155.6%)
+
+OP: Unsuccessfull lookup on 200-element lists [~3 s]
+    # Array... (14,577,793 ops)
+        Avg: 4,811,445 ops/sec (207 ns/op)
+    # Set.... (237,453,335 ops)
+        Avg: 76,706,794 ops/sec (13 ns/op)
+    # LinkedSet.... (356,517,579 ops)
+        Avg: 115,079,683 ops/sec (8 ns/op)
+ >  Array ~207 ns/op (6.3%)
+ >  Set ~13 ns/op (100.0%)
+>>> LinkedSet ~8 ns/op (162.5%)
+
+OP: 100k Random Lookups on 10k-element lists [x10]
+    # Array... (7.22 s)
+        Avg: 714 ms/op σ 5.05 ms
+    # Set... (83 ms)
+        Avg: 3.24 ms/op σ 739 μs
+    # LinkedSet... (81 ms)
+        Avg: 2.98 ms/op σ 803 μs
+ >  Array ~717 ms/op (0.5%)
+ >  Set ~3.61 ms/op (100.0%)
+>>> LinkedSet ~3.38 ms/op (106.7%)
+
+
+ Summary 
+
+ >> Array average score: 157.7%
+  > Set average score: 116.9%
+>>> LinkedSet average score: 806.6%
+
+All List Suite benchmarks completed in 126 s
+

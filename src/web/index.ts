@@ -1,3 +1,5 @@
+import 'browser-hrtime';
+import 'setimmediate';
 import Bench, { _singletonMethods } from '../common/Bench';
 
 export class WebBench extends Bench {
@@ -26,6 +28,8 @@ export class WebBench extends Bench {
 const {
   bench,
   xbench,
+  timedBench,
+  xtimedBench,
   trial,
   xtrial,
   log,
@@ -52,6 +56,8 @@ const {
 export {
   bench,
   xbench,
+  timedBench,
+  xtimedBench,
   trial,
   xtrial,
   log,

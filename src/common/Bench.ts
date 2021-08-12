@@ -50,6 +50,18 @@ export interface IBench {
     body: (() => void | Promise<void>) | ((b: IBench) => void | Promise<void>),
     iterations?: number
   ): Promise<Summary[]>;
+  xtimedBench(...args: any[]): void;
+  timedBench(
+    only: true,
+    name: string,
+    body: (() => void | Promise<void>) | ((b: IBench) => void | Promise<void>),
+    timeToRun?: number
+  ): Promise<Summary[]>;
+  timedBench(
+    name: string,
+    body: (() => void | Promise<void>) | ((b: IBench) => void | Promise<void>),
+    timeToRun?: number
+  ): Promise<Summary[]>;
   xtrial(...args: any[]): void;
   trial(fn: TrialFn, isAsync?: false): void;
   trial(fn: TrialFnAsync, isAsync: true): void;
@@ -104,7 +116,8 @@ function avg(a: number[]) {
 }
 
 export default class Bench implements IBench {
-  static package = `${packageName} v${version}`;
+  static readonly nextTick: (fn: () => void) => void = setImmediate;
+  static readonly package = `${packageName} v${version}`;
   static readonly lock = mutexify.promise(setImmediate);
 
   static create(name?: string) {
@@ -112,7 +125,11 @@ export default class Bench implements IBench {
   }
 
   static createAndUnpack(name?: string) {
-    return _singletonMethods(this.create(name));
+    return this.unpack(this.create(name));
+  }
+
+  static unpack(instance: Bench) {
+    return _singletonMethods(instance);
   }
 
   static overallScores(results: Summary[][], pick?: string[], omit?: string[]) {
@@ -164,6 +181,7 @@ export default class Bench implements IBench {
     before: null | (() => void | Promise<void>) | ((b: IBench) => void | Promise<void>);
     after: null | (() => void | Promise<void>) | ((b: IBench) => void | Promise<void>);
     handler: any;
+    startMs: number;
   } = {
     trials: new Set<Trial>(),
     one: false,
@@ -176,6 +194,7 @@ export default class Bench implements IBench {
     before: null,
     after: null,
     handler: null,
+    startMs: 0,
   };
 
   log(msg: string, eol?: boolean) {
@@ -191,7 +210,10 @@ export default class Bench implements IBench {
       this.error(`Benchmark suite "${this.name}" never finished`);
     } else {
       this.log(
-        `All ${this.name} benchmarks completed in ${prettyHrtime([0, this.state.totalClock])}\n`
+        `All ${this.name} benchmarks completed in ${prettyHrtime([
+          0,
+          Math.floor((performance.now() - this.state.startMs) * 1e6),
+        ])}\n`
       );
     }
   }
@@ -414,13 +436,15 @@ export default class Bench implements IBench {
             | ((b: IBench) => void | Promise<void>));
     const iterations: number = typeof bodyOrIterations === 'number' ? bodyOrIterations : it;
 
+    if (!this.state.startMs) this.state.startMs = performance.now();
+
     if (only) {
       if (this.state.one) throw new Error('Cannot have more than one "only" benchmark');
       this.state.one = true;
     }
 
     return new Promise((res, rej) => {
-      process.nextTick(async () => {
+      (this.constructor as typeof Bench).nextTick(async () => {
         try {
           let summaries = [];
           let i = 0;
@@ -430,7 +454,9 @@ export default class Bench implements IBench {
 
           clearTimeout(this.state.handler);
           if (this.state.one && !only) return res(undefined);
-          if (!this.state.runs) this.printHeader();
+          if (!this.state.runs) {
+            this.printHeader();
+          }
           this.state.runs += 1;
 
           const release = await this.lock();
@@ -442,6 +468,8 @@ export default class Bench implements IBench {
           this.state.oneTrial = false;
           this.state.setup = null;
           this.state.teardown = null;
+          this.state.before = null;
+          this.state.after = null;
           await body(this);
 
           if (this.state.setup) await (this.state.setup as (b: IBench) => void)(this);
@@ -450,27 +478,28 @@ export default class Bench implements IBench {
               let results = [];
               let j = -1;
               let step = Math.ceil(iterations / 4);
+              let startTime: [number, number];
+              let endTime: [number, number] | null;
+              let diff;
+              const start = () => (startTime = hrtime());
+              const end = () => (endTime = hrtime());
+              const b = { start, end, log: this.log.bind(this) };
+              const tfn = t.fn;
 
               clockStart = hrtime();
               this.log(`    # ${t.name || `Trial ${i}`}`, false);
               while (++j < iterations) {
-                let startTime: [number, number];
-                let endTime: [number, number];
-                let diff;
-                const start = () => (startTime = hrtime());
-                const end = () => (endTime = hrtime());
-                const b = { start, end, log: this.log.bind(this) };
-
+                endTime = null;
                 if (this.state.before) {
                   await (this.state.before as (b: IBench) => void | Promise<void>)(this);
                 }
                 if (t.async) {
                   startTime = hrtime();
-                  await t.fn(b);
+                  await tfn(b);
                   endTime ||= hrtime();
                 } else {
                   startTime = hrtime();
-                  t.fn(b);
+                  tfn(b);
                   endTime ||= hrtime();
                 }
                 if (this.state.after) {
@@ -542,6 +571,180 @@ export default class Bench implements IBench {
         }
       });
     }).then((data) => {
+      clearTimeout(this.state.handler);
+      this.state.handler = setTimeout(() => this.finished(), 1000);
+      return data;
+    });
+  }
+
+  xtimedBench(...args: any[]) {
+    // noop
+  }
+
+  timedBench(
+    name: string,
+    body: (() => void | Promise<void>) | ((b: IBench) => void | Promise<void>),
+    timeToRun?: number
+  ): Promise<Summary[]>;
+  timedBench(
+    only: true,
+    name: string,
+    body: (() => void | Promise<void>) | ((b: IBench) => void | Promise<void>),
+    timeToRun?: number
+  ): Promise<Summary[]>;
+  timedBench(
+    onlyOrName: boolean | string,
+    nameOrBody: string | (() => void | Promise<void>) | ((b: IBench) => void | Promise<void>),
+    bodyOrRuntime?: number | (() => void | Promise<void>) | ((b: IBench) => void | Promise<void>),
+    timeToRun = 5000
+  ) {
+    const only: boolean = typeof onlyOrName === 'boolean' ? onlyOrName : false;
+    const name: string = typeof onlyOrName === 'string' ? onlyOrName : (nameOrBody as string);
+    const body: (() => void | Promise<void>) | ((b: IBench) => void | Promise<void>) =
+      typeof nameOrBody === 'function'
+        ? nameOrBody
+        : (bodyOrRuntime as (() => void | Promise<void>) | ((b: IBench) => void | Promise<void>));
+    const runtime: number = typeof bodyOrRuntime === 'number' ? bodyOrRuntime : timeToRun;
+
+    if (!this.state.startMs) this.state.startMs = performance.now();
+
+    if (only) {
+      if (this.state.one) throw new Error('Cannot have more than one "only" benchmark');
+      this.state.one = true;
+    }
+
+    return new Promise((res, rej) => {
+      (this.constructor as typeof Bench).nextTick(async () => {
+        try {
+          let summaries = [];
+          let i = 0;
+          let clockStart = [0, 0];
+          let clockEnd = [0, 0];
+          let clockDiff = 0;
+
+          clearTimeout(this.state.handler);
+          if (this.state.one && !only) return res(undefined);
+          if (!this.state.runs) this.printHeader();
+          this.state.runs += 1;
+
+          const release = await this.lock();
+          clearTimeout(this.state.handler);
+
+          this.state.cur = true;
+          this.log(
+            `OP: ${name} [~${prettyHrtime([Math.floor(runtime / 1000), 1e6 * (runtime % 1000)])}]`
+          );
+          this.state.trials.clear();
+          this.state.oneTrial = false;
+          this.state.setup = null;
+          this.state.teardown = null;
+          this.state.before = null;
+          this.state.after = null;
+          await body(this);
+
+          if (this.state.setup) await (this.state.setup as (b: IBench) => void)(this);
+          for (const t of this.state.trials) {
+            if (!this.state.oneTrial || t.only) {
+              if (t.async) {
+                this.error(
+                  `${name}: Async trials are ignored inside a runtime benchmark (${t.name})`
+                );
+                continue;
+              }
+              const start = () => {
+                this.error(
+                  `${name}: Cannot use start/stop controls in runtime benchmark (they will be ignored)`
+                );
+              };
+              const end = start;
+              const log = this.log.bind(this);
+              const b: TrialBench = { start, end, log };
+              let step = 10;
+              let ops = 0;
+              let tStart;
+              let tEnd;
+              let tDiff;
+              const tfn = t.fn;
+
+              clockDiff = 0;
+              this.log(`    # ${t.name || `Trial ${i}`}`, false);
+              if (this.state.before || this.state.after) {
+                this.error(
+                  `${name}: Cannot use before/after each hooks in runtime benchmark (they will be ignored)`
+                );
+              }
+              while (clockDiff < 1e4) {
+                ops = 0;
+                clockStart = hrtime();
+                while (ops++ < step) tfn(b);
+                clockEnd = hrtime();
+                clockDiff = (clockEnd[0] - clockStart[0]) * 1e9 + clockEnd[1] - clockStart[1];
+                step = Math.pow(step, 2);
+              }
+              this.log('.', false);
+              while (clockDiff / 1e6 < runtime) {
+                const remainder = 100 + runtime - clockDiff / 1e6;
+                const pred = clockDiff / 1e6 / ops;
+                const runs = ops + Math.max(1, Math.floor(remainder / pred));
+
+                clockStart = hrtime();
+                while (ops++ < runs) tfn(b);
+                clockEnd = hrtime();
+                clockDiff += (clockEnd[0] - clockStart[0]) * 1e9 + clockEnd[1] - clockStart[1];
+                this.log('.', false);
+              }
+
+              this.state.totalClock += clockDiff;
+              this.log(` (${ops.toLocaleString()} ops)`);
+
+              if (ops > 1) {
+                const avg = Math.floor(clockDiff / ops);
+                const opps = Math.floor(ops / (clockDiff / 1e9));
+
+                this.log(
+                  `        Avg: ${opps.toLocaleString()} ops/sec (${prettyHrtime([0, avg])}/op)`
+                );
+                summaries.push({
+                  name: t.name || `Trial ${i}`,
+                  avg,
+                  dev: 0,
+                  v: avg,
+                  score: 0,
+                });
+              } else {
+                this.log(`        No results!`);
+              }
+            }
+          }
+          if (this.state.teardown) await (this.state.teardown as (b: IBench) => void)(this);
+
+          if (summaries.length > 1) {
+            const sorted = summaries.slice().sort((a, b) => a.v - b.v);
+            const pivot =
+              summaries.length === 2 ? sorted[1] : sorted[Math.floor(summaries.length / 2)];
+
+            for (const s of summaries) {
+              s.score = pivot.v / s.v;
+
+              this.log(
+                `${s === sorted[0] ? '>>>' : ' > '} ${s.name} ~${prettyHrtime([0, s.v])}/op (${(
+                  s.score * 100
+                ).toFixed(1)}%)`
+              );
+            }
+          }
+
+          this.state.cur = false;
+          release();
+          res(summaries.filter(Boolean));
+          this.log('');
+        } catch (e) {
+          this.error(`[FATAL] ${e?.message || e}`);
+          rej(e);
+        }
+      });
+    }).then((data) => {
+      clearTimeout(this.state.handler);
       this.state.handler = setTimeout(() => this.finished(), 1000);
       return data;
     });
@@ -552,7 +755,8 @@ export function _singletonMethods(singleton = Bench.create()): IBench {
   return `
     log error xbench bench xtrial trial setUp tearDown beforeEach afterEach assert
     assertExists assertEq assertNotEq assertLength assertType assertLt assertGt
-    assertLte assertGte assertNotLength assertNotType assertNotExists
+    assertLte assertGte assertNotLength assertNotType assertNotExists timedBench
+    xtimedBench
   `
     .split(/\s+/g)
     .filter(Boolean)
