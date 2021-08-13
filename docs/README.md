@@ -160,8 +160,6 @@ bench(
 ```typescript
 import Bench from '@zimmed/bench/web';
 
-const element = document.getElementById('output-div');
-
 class MyBench extends Bench {
   element = document.createElement('div');
 
