@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<head>
+  <meta charset="utf8">
+  <title>Example Web Runner</title>
+  <style>
+    #main {
+      width: 90vw;
+      margin: 0 auto;
+      position: relative;
+    }
+    #head {
+      text-align: center;
+      width: 100%;
+    }
+    #head + div {
+      width: 100%;
+      text-align: center;
+    }
+  </style>
+</head>
+<body>
+
+  <div id="main">
+    <div id="head"><h1>Example Web Runner</h1></div>
+    <div><button onclick="javascript:onClick(this)">Run List Suite</button></div>
+    <div id="logs"></div>
+  </div>
+
+  <script src="../../dist/web.umd.js"></script>
+  <script src="../utils/HTMLBench.umd.js"></script>
+  <script src="../utils/LinkedSet.umd.js"></script>
+  <script src="./lists.umd.js"></script>
+  <script>
+    function onClick(btn) {
+      btn.disabled = true;
+      btn.innerHTML = 'Running...';
+      if (window.runListSuite) {
+        window.runListSuite(document.getElementById('logs')).then(() => {
+          btn.disabled = false;
+          btn.innerHTML = 'Run List Suite';
+        }).catch(e => {
+          console.error(e);
+          btn.disabled = false;
+          btn.innerHTML = 'Run List Suite';
+        });
+      } else {
+        btn.disabled = false;
+          btn.innerHTML = 'Run List Suite';
+      }
+    }
+  </script>
+</body>
